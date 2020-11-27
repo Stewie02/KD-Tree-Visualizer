@@ -1,6 +1,7 @@
-from pointCreator import PointCreator
+from kdTree import KdTree
+from pointCreator import create_points
 from graph import Graph
-from kdTreeBuilder import KdTreeBuilder
+from lineCreator import get_lines
 
 
 width = 1200
@@ -10,14 +11,14 @@ amount_of_points = 10
 
 def main():
 
-    point_creator = PointCreator(amount_of_points, width, height)
-    builder = KdTreeBuilder(point_creator.get_points(), width, height)
+    points = create_points(amount_of_points, width, height)
+    kd_tree = KdTree(points, False)
     graph = Graph(width, height)
 
-    for point in point_creator.get_points():
+    for point in points:
         graph.show_point(point)
 
-    graph.show_lines(builder.get_line_coordinates())
+    graph.show_lines(get_lines(kd_tree, width, height))
     graph.run_graph()
 
 

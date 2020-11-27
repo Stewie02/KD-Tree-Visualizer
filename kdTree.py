@@ -9,9 +9,9 @@ class KdTree:
         self.smaller_than_points = []
         self.bigger_or_equal_points = []
         self.depth = depth
-        self.set_points(self.sort_togo_points(points))
-        self.left = self.create_child(self.left, self.smaller_than_points)
-        self.right = self.create_child(self.right, self.bigger_or_equal_points)
+        smaller_than_points, bigger_or_equal_points = self.set_points(points)
+        self.left = self.create_child(self.left, smaller_than_points)
+        self.right = self.create_child(self.right, bigger_or_equal_points)
 
     def create_child(self, side, points):
         if len(points) < 2:
@@ -22,15 +22,17 @@ class KdTree:
         return side
 
     def set_points(self, points):
+        smaller_than_points = []
+        bigger_or_equal_points = []
+
+        points = self.sort_togo_points(points)
         self.median = points[int(len(points) / 2)]
         bigger_or_equal = False
         for point in points:
             if point == self.median:
                 bigger_or_equal = True
-            if not bigger_or_equal:
-                self.smaller_than_points.append(point)
-            else:
-                self.bigger_or_equal_points.append(point)
+            bigger_or_equal_points.append(point) if bigger_or_equal else smaller_than_points.append(point)
+        return smaller_than_points, bigger_or_equal_points
 
     def get_left(self):
         return self.left

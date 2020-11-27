@@ -32,15 +32,6 @@ class KdTree:
             else:
                 self.bigger_or_equal_points.append(point)
 
-    def get_bigger_or_equal_points(self):
-        return self.bigger_or_equal_points
-
-    def get_smaller_than_points(self):
-        return self.smaller_than_points
-
-    def get_depth(self):
-        return self.depth
-
     def get_left(self):
         return self.left
 
